@@ -21,7 +21,11 @@ defmodule Ectogram.UserFixtures do
 
   def user_fixture(attrs \\ %{}) do
     attrs = Map.merge(@valid_attrs, attrs)
-    {:ok, user} = register_user(attrs)
-    user
+    case register_user(attrs) do
+      {:ok, user} ->
+        user
+      {:error, changeset} ->
+        changeset
+    end
   end
 end
