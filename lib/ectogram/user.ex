@@ -90,9 +90,10 @@ defmodule Ectogram.User do
   end
 
   defp build_and_validate_url(changeset) do
+    url = get_change(changeset, :url)
     username = get_change(changeset, :username)
 
-    if username do
+    if !url && username do
       changeset
       |> put_change(:url, @base_url <> "/" <> replace(username, ~r/@/, ""))
       |> validate_required([:url])
