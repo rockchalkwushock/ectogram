@@ -1,4 +1,4 @@
-alias Ectogram.{Repo, User}
+alias Ectogram.{Post, Repo, User}
 import Faker
 
 # Seed database with users.
@@ -18,7 +18,21 @@ for _ <- 1..100 do
     # Ensures string meets 'format' validation.
     phone: String.replace(Faker.Phone.EnGb.number(), ~r/\s/, ""),
     # Ensures string does not exceed 'max' validation.
-    username: "@#{String.slice(Faker.Internet.user_name(), 0..19)}"
+    username: "@#{String.slice(Faker.Internet.user_name(), 0..15)}"
   })
   |> Repo.insert!()
+end
+
+for user <- Repo.all(User) do
+  for num <- 1..30 do
+    %Post{}
+    |> Post.changeset(%{
+      # Ensures string does not exceed 'max' validation.
+      caption: String.slice(Faker.Lorem.paragraph(), 0..240),
+      lat: Faker.Address.latitude(),
+      long: Faker.Address.longitude(),
+      user_id: user.id
+    })
+    |> Repo.insert!()
+  end
 end
