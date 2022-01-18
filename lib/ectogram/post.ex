@@ -22,6 +22,7 @@ defmodule Ectogram.Post do
     post
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required([:user_id])
+    |> validate_length(:caption, max: 240)
     |> build_and_validate_url()
     |> assoc_constraint(:user)
   end
