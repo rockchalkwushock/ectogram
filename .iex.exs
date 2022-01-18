@@ -1,4 +1,4 @@
-alias Ectogram.{Repo,User}
+alias Ectogram.{Post,Repo,User}
 
 import_if_available Ecto.Query
 
