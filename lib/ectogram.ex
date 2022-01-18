@@ -40,7 +40,7 @@ defmodule Ectogram do
 
   def list_posts(), do: Repo.all(Post)
 
-  def list_posts_by_user!(%User{} = user) do
+  def list_posts_by_user(%User{} = user) do
     query = from p in Post, where: p.user_id == ^user.id
     Repo.all(query)
   end
