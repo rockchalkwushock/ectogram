@@ -28,7 +28,7 @@ for user <- Repo.all(User) do
     %Post{}
     |> Post.changeset(%{
       # Ensures string does not exceed 'max' validation.
-      caption: String.slice(Faker.Lorem.paragraph(), 0..240),
+      caption: String.slice(Faker.Lorem.paragraph(), 0..230),
       lat: Faker.Address.latitude(),
       long: Faker.Address.longitude(),
       user_id: user.id
