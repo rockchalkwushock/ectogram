@@ -1,6 +1,5 @@
 defmodule Ectogram.PostFixtures do
   import Ectogram
-  import Faker
 
   @valid_attrs %{
     caption: String.slice(Faker.Lorem.paragraph(), 0..230),
