@@ -18,5 +18,6 @@ defmodule Ectogram.CommentLike do
     |> validate_required(@required_fields)
     |> assoc_constraint(:comment)
     |> assoc_constraint(:user)
+    |> unique_constraint([:comment_id, :user_id])
   end
 end

@@ -18,5 +18,6 @@ defmodule Ectogram.PostLike do
     |> validate_required(@required_fields)
     |> assoc_constraint(:post)
     |> assoc_constraint(:user)
+    |> unique_constraint([:post_id, :user_id])
   end
 end
