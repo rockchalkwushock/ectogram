@@ -1,4 +1,4 @@
-alias Ectogram.{Comment, Post, Repo, User}
+alias Ectogram.{Comment, CommentLike, Post, PostLike, Repo, User}
 import Faker
 
 # Seed database with users.
@@ -35,14 +35,28 @@ for user <- Repo.all(User) do
       })
       |> Repo.insert!()
 
-    for _ <- 1..50 do
-      %Comment{}
-      |> Comment.changeset(%{
-        content: String.slice(Faker.Lorem.paragraph(), 0..230),
+      %PostLike{}
+      |> PostLike.changeset(%{
         post_id: post.id,
         user_id: user.id
       })
-      |> Repo.insert!()
+      |> Repo.insert()
+
+    for _ <- 1..50 do
+      comment = %Comment{}
+        |> Comment.changeset(%{
+          content: String.slice(Faker.Lorem.paragraph(), 0..230),
+          post_id: post.id,
+          user_id: user.id
+        })
+        |> Repo.insert!()
+
+        %CommentLike{}
+        |> CommentLike.changeset(%{
+          comment_id: comment.id,
+          user_id: user.id
+        })
+        |> Repo.insert()
     end
   end
 end
