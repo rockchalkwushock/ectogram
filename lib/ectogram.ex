@@ -3,7 +3,7 @@ defmodule Ectogram do
   Documentation for `Ectogram`.
   """
   import Ecto.Query, warn: false
-  alias Ectogram.{Comment,CommentLike,Post,PostLike,Repo,User}
+  alias Ectogram.{Comment,CommentLike,Post,PostLike,PostTag,Repo,User}
 
   #############################
   # User
@@ -106,6 +106,35 @@ defmodule Ectogram do
   end
 
   def unlike_post(%PostLike{} = like), do: Repo.delete(like)
+
+  #############################
+  #############################
+
+  #############################
+  # PostTags
+  #############################
+
+  def get_post_tag!(id), do: Repo.get!(PostTag, id)
+
+  def list_post_tags(%Post{} = post) do
+    Repo.get!(Post, post.id)
+    |> Repo.preload(:post_tags)
+    |> Map.get(:post_tags)
+  end
+
+  def create_post_tag(attrs) do
+    %PostTag{}
+    |> PostTag.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def update_post_tag(%PostTag{} = tag, attrs) do
+    tag
+    |> PostTag.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def delete_post_tag(%PostTag{} = tag), do: Repo.delete(tag)
 
   #############################
   #############################

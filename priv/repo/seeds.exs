@@ -1,4 +1,4 @@
-alias Ectogram.{Comment, CommentLike, Post, PostLike, Repo, User}
+alias Ectogram.{Comment, CommentLike, Post, PostLike, PostTag, Repo, User}
 import Faker
 
 # Seed database with users.
@@ -39,6 +39,15 @@ for user <- Repo.all(User) do
       |> PostLike.changeset(%{
         post_id: post.id,
         user_id: user.id
+      })
+      |> Repo.insert()
+
+      %PostTag{}
+      |> PostTag.changeset(%{
+        post_id: post.id,
+        user_id: user.id,
+        x: random_between(0,300),
+        y: random_between(0,300)
       })
       |> Repo.insert()
 
