@@ -1,7 +1,7 @@
 defmodule Ectogram.User do
   use Ectogram.Schema
   import Ecto.Changeset
-  alias Ectogram.{Comment, Repo, Post}
+  alias Ectogram.{Comment,CommentLike,Post,PostLike,Repo}
   import Bcrypt, only: [hash_pwd_salt: 1]
   import Keyword, only: [get: 3]
   import String, only: [replace: 3]
@@ -23,7 +23,9 @@ defmodule Ectogram.User do
     field :username, :string
     field :verified, :boolean, default: false
 
+    has_many :comment_likes, CommentLike
     has_many :comments, Comment
+    has_many :post_likes, PostLike
     has_many :posts, Post
 
     timestamps()

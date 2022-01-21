@@ -1,13 +1,14 @@
 defmodule Ectogram.Comment do
   use Ectogram.Schema
   import Ecto.Changeset
-  alias Ectogram.{Post,User}
+  alias Ectogram.{CommentLike,Post,User}
 
   @required_fields ~w(content post_id user_id)a
 
   schema "comments" do
     field :content, :string
 
+    has_many :likes, CommentLike
     belongs_to :post, Post
     belongs_to :user, User
 

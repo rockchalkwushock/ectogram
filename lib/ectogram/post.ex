@@ -1,7 +1,7 @@
 defmodule Ectogram.Post do
   use Ectogram.Schema
   import Ecto.Changeset
-  alias Ectogram.{Comment,User}
+  alias Ectogram.{Comment,PostLike,User}
 
   @base_url "https://ectogram.com"
   @optional_fields ~w(caption lat long)a
@@ -14,6 +14,7 @@ defmodule Ectogram.Post do
     field :url, :string
 
     has_many :comments, Comment
+    has_many :likes, PostLike
     belongs_to :user, User
 
     timestamps()
