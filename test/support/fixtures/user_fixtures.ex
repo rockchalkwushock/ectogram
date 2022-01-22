@@ -28,4 +28,13 @@ defmodule Ectogram.UserFixtures do
         changeset
     end
   end
+
+  def follow_fixture(attrs) do
+    case follow_user(attrs) do
+      {:ok, follower} ->
+        follower
+      {:error, changeset} ->
+        changeset
+    end
+  end
 end

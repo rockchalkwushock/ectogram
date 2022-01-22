@@ -3,7 +3,7 @@ defmodule Ectogram do
   Documentation for `Ectogram`.
   """
   import Ecto.Query, warn: false
-  alias Ectogram.{Comment,CommentLike,Hashtag,Post,PostLike,PostTag,Repo,User}
+  alias Ectogram.{Comment,CommentLike,Follower,Hashtag,Post,PostLike,PostTag,Repo,User}
 
   #############################
   # User
@@ -154,6 +154,29 @@ defmodule Ectogram do
   end
 
   def delete_hashtag(%Hashtag{} = tag), do: Repo.delete(tag)
+
+  #############################
+  #############################
+
+  #############################
+  # Followers
+  #############################
+
+  def get_follower!(id), do: Repo.get!(User, id)
+
+  def list_followers(id) do
+    query = from u in User, where: u.id == ^id, preload: [:followers]
+    Repo.one(query)
+    |> Map.get(:followers)
+  end
+
+  def follow_user(attrs) do
+    %Follower{}
+    |> Follower.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def unfollow_user(%Follower{} = follower), do: Repo.delete(follower)
 
   #############################
   #############################
