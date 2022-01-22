@@ -1,4 +1,4 @@
-alias Ectogram.{Comment,CommentLike,Post,PostLike,PostTag,Repo,User}
+alias Ectogram.{Comment,CommentLike,Hashtag,Post,PostLike,PostTag,Repo,User}
 
 import_if_available Ecto.Query
 

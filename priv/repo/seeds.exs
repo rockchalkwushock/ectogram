@@ -1,4 +1,4 @@
-alias Ectogram.{Comment, CommentLike, Post, PostLike, PostTag, Repo, User}
+alias Ectogram.{Comment, CommentLike, Hashtag, Post, PostLike, PostTag, Repo, User}
 import Faker
 
 # Seed database with users.
@@ -68,4 +68,10 @@ for user <- Repo.all(User) do
         |> Repo.insert()
     end
   end
+end
+
+for _ <- 1..100 do
+  %Hashtag{}
+  |> Hashtag.changeset(%{title: "#" <> String.slice(Faker.Internet.user_name(), 0..18)})
+  |> Repo.insert()
 end
