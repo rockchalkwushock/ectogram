@@ -16,7 +16,7 @@ defmodule Ectogram.UserFixtures do
     # Ensures string meets 'format' validation.
     phone: String.replace(Faker.Phone.EnGb.number(), ~r/\s/, ""),
     # Ensures string does not exceed 'max' validation.
-    username: "@#{String.slice(Faker.Internet.user_name(), 0..19)}"
+    username: "@#{String.slice(Faker.Internet.user_name(), 0..15)}"
   }
 
   def user_fixture(attrs \\ %{}) do
@@ -24,6 +24,15 @@ defmodule Ectogram.UserFixtures do
     case register_user(attrs) do
       {:ok, user} ->
         user
+      {:error, changeset} ->
+        changeset
+    end
+  end
+
+  def follow_fixture(attrs) do
+    case follow_user(attrs) do
+      {:ok, follower} ->
+        follower
       {:error, changeset} ->
         changeset
     end

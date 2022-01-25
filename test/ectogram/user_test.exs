@@ -1,5 +1,5 @@
 defmodule Ectogram.UserTest do
-  use Ectogram.DataCase
+  use Ectogram.DataCase, async: true
 
   alias Ectogram.{User}
   import Ectogram
